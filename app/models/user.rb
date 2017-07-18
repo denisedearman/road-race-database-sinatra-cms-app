@@ -3,4 +3,11 @@ class User < ActiveRecord::Base
   has_many :reports
   has_many :races, through: :reports
 
+  include Slugifiable::InstanceMethods
+  extend Slugifiable::ClassMethods
+
+  def slug
+    slugify("username")
+  end
+
 end
