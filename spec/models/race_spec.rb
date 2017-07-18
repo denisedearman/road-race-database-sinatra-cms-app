@@ -26,4 +26,21 @@ describe 'Race' do
   it 'has a distance' do
     expect(@race.distance).to eq("marathon")
   end
+
+  it 'has many reports' do
+    expect(@race.reports.count).to eq(1)
+  end
+
+  it 'has many users' do
+    expect(@race.users.count).to eq(1)
+  end
+
+  it 'can slugify its name' do
+    expect(@race.slug).to eq("new-york-city-marathon")
+  end
+
+  it 'can find a race by its slug' do
+    slug = @race.slug
+    expect(Race.find_by_slug(slug).name).to eq("New York City Marathon")
+  end
 end
