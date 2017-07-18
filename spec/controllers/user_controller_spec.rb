@@ -12,7 +12,7 @@ describe UserController do
   describe "Signup Page" do
     it 'loads the signup page' do
       get '/signup'
-      expect(last_response).status.to eq(200)
+      expect(last_response.status).to eq(200)
     end
 
     it 'allows you to view form to create a user' do
@@ -39,7 +39,7 @@ describe UserController do
         password: "notagoodpassword"
       }
       post '/signup', params
-      expect(last_response).location.to include("/races")
+      expect(last_response.location).to include("/races")
     end
 
     it 'does not allow a user to signup without a username' do
@@ -49,7 +49,7 @@ describe UserController do
         password: "notagoodpassword"
       }
       post '/signup', params
-      expect(last_response).location.to include("/signup")
+      expect(last_response.location).to include("/signup")
     end
 
     it 'does not allow a user to signup without an email' do
@@ -59,7 +59,7 @@ describe UserController do
         password: "notagoodpassword"
       }
       post '/signup', params
-      expect(last_response).location.to include("/signup")
+      expect(last_response.location).to include("/signup")
     end
 
     it 'does not allow a user to signup without a password' do
@@ -69,7 +69,7 @@ describe UserController do
         password: ""
       }
       post '/signup', params
-      expect(last_response).location.to include("/signup")
+      expect(last_response.location).to include("/signup")
     end
 
     it 'does not allow a logged in user to view the signup page' do
@@ -83,7 +83,7 @@ describe UserController do
       session = {}
       session[:user_id] = user.id
       get '/signup'
-      expect(last_response).location.to include("/races")
+      expect(last_response.location).to include("/races")
     end
 
 
