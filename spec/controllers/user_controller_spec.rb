@@ -1,11 +1,35 @@
 require 'spec_helper'
 
 describe UserController do
+  before do
+    shalane = User.create(username: "shalane", email: "shalane@olympians.net", password: "trackqueen")
+  end
+
+  after do
+    User.destroy_all
+  end
 
   describe "Signup Page" do
     it 'loads the signup page' do
       get '/signup'
       expect(last_response).status.to eq(200)
+    end
+
+    it 'allows you to view form to create a user' do
+      visit '/signup'
+      expect(page.body).to include('<form')
+      expect(page.body).to include('username')
+      expect(page.body).to include('email')
+      expect(page.body).to include('password')
+    end
+
+    it 'allows you to create a new user' do
+      visit '/signup'
+      fill_in :username, :with => "bolt"
+      fill_in :email, :with => "fasterthanyou@nike.com"
+      fill_in :password, :with => "gold"
+      click_button "Sign Up"
+      expect(User.all.count).to eq(2)
     end
 
     it 'directs the new user to races index' do
