@@ -75,7 +75,6 @@ describe ReportsController do
       expect(report.runs_per_week).to eq(5)
       expect(report.miles_per_week).to eq(35)
       expect(report.race).to eq(Race.last)
-
     end
   end
 
