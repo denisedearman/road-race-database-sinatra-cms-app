@@ -107,9 +107,18 @@ describe UsersController do
       expect(last_response.location).to include("/races")
     end
 
-    # it 'does not let the user view login page if already logged in' do
-    #
-    # end
+    it 'does not let the user view login page if already logged in' do
+      user = User.create(username: "scott", email: "ultra@gmail.com", password: "runningformiles")
+      params = {
+        username: "scott",
+        password: "runningformiles"
+      }
+      post '/login', params
+      session = {}
+      session[:user_id] = user.id
+      get '/login'
+      expect(last_response.location).to include("/races")
+    end
 
   end
 
