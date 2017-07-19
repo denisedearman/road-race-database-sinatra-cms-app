@@ -2,12 +2,12 @@
 <form method = "POST" action = "/reports">
 
   <label for="select_race">Select the race you are writing a race report on:</label><br>
-  <form action="">
+
     <%Race.all.each do |race|%>
-      <input type="radio" id="race_<%=race.id%>" name="report[race_id]" value="<%=race.id%>"><%=race.name%></input><br>
+      <input id="race_<%=race.id%>" type="radio"  name="report[race_id]" value="<%=race.id%>"><%=race.name%></input><br>
     <%end%>
-      <input type="radio" id="race_0" name="report[race_id]" value="0">None</input>
-  </form>
+      <input id="race_0" type="radio" name="report[race_id]" value="0">None</input>
+
   <br><br>
 
   <label for="create_race">Or create a new race to write a report on:</label><br><br>

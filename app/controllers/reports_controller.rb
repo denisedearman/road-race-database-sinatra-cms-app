@@ -1,7 +1,26 @@
 class ReportsController < ApplicationController
 
   get '/reports/new' do
-    erb :'reports/new'
+    if !logged_in?
+      redirect '/login'
+    else
+      erb :'reports/new'
+    end
+  end
+
+  post '/reports' do
+    if !logged_in?
+      redirect '/login'
+    else
+      report = Report.create(params[:report])
+      report.user = current_user
+      if params[:report][:race_id].to_i == 0
+        race= Race.create(params[:race])
+        report.race = race
+      end
+      report.save
+      redirect '/reports'
+    end
   end
 
 end

@@ -12,69 +12,98 @@ describe ReportsController do
   end
 
   describe "Create Report Page" do
-    it 'allows you to view a form to create a new report' do
-      visit '/reports/new'
-      expect(page.body).to include('<form')
-      expect(page.body).to include('report[title]')
-      expect(page.body).to include('report[score]')
-      expect(page.body).to include('report[year]')
-      expect(page.body).to include('report[content]')
-      expect(page.body).to include('report[runs_per_week]')
-      expect(page.body).to include('report[miles_per_week]')
-      expect(page.body).to include('report[race_id]')
-      expect(page.body).to include('race[name]')
-      expect(page.body).to include('race[location]')
-      expect(page.body).to include('race[next_race_day]')
-      expect(page.body).to include('race[distance]')
-    end
+
+    context 'logged_in' do
+
+      it 'allows you to view a form to create a new report' do
+        user = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
+
+        visit '/login'
+
+        fill_in(:username, :with => "trackstar")
+        fill_in(:password, :with => "shoes")
+        click_button 'submit'
+
+        visit '/reports/new'
+        expect(page.body).to include('<form')
+        expect(page.body).to include('report[title]')
+        expect(page.body).to include('report[score]')
+        expect(page.body).to include('report[year]')
+        expect(page.body).to include('report[content]')
+        expect(page.body).to include('report[runs_per_week]')
+        expect(page.body).to include('report[miles_per_week]')
+        expect(page.body).to include('report[race_id]')
+        expect(page.body).to include('race[name]')
+        expect(page.body).to include('race[location]')
+        expect(page.body).to include('race[next_race_day]')
+        expect(page.body).to include('race[distance]')
+      end
 
 
-    it 'allows you to create a report with a race' do
-      visit '/reports/new'
-      fill_in :report_title, with: "Best Race Ever"
-      fill_in :report_score, with: 5
-      fill_in :report_year, with: 2015
-      fill_in :report_content, with: "The BEST RACE EVER"
-      fill_in :report_runs_per_week, with: 5
-      fill_in :report_miles_per_week, with: 35
-      check "race_#{Race.first.id}"
-      click_button "Create New Report"
-      report = Report.last
-      expect(Report.all.count).to eq(2)
-      expect(report.title).to eq("Best Race Ever")
-      expect(report.score).to eq(5)
-      expect(report.year).to eq(2015)
-      expect(report.content).to eq("The BEST RACE EVER")
-      expect(report.runs_per_week).to eq(5)
-      expect(report.miles_per_week).to eq(35)
-      expect(report.race).to eq(Race.last)
+      it 'allows you to create a report with a race' do
+        user = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
+
+        visit '/login'
+
+        fill_in(:username, :with => "trackstar")
+        fill_in(:password, :with => "shoes")
+        click_button 'submit'
+
+        visit '/reports/new'
+        fill_in :report_title, with: "Best Race Ever"
+        fill_in :report_score, with: 5
+        fill_in :report_year, with: 2015
+        fill_in :report_content, with: "The BEST RACE EVER"
+        fill_in :report_runs_per_week, with: 5
+        fill_in :report_miles_per_week, with: 35
+        choose("race_#{Race.first.id}", visible: false)
+        click_button "Create New Report"
+        report = Report.last
+        expect(Report.all.count).to eq(2)
+        expect(report.title).to eq("Best Race Ever")
+        expect(report.score).to eq(5)
+        expect(report.year).to eq(2015)
+        expect(report.content).to eq("The BEST RACE EVER")
+        expect(report.runs_per_week).to eq(5)
+        expect(report.miles_per_week).to eq(35)
+        expect(report.race).to eq(Race.last)
+      end
+
+      it 'allows you to create a report with a new race' do
+        user = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
+
+        visit '/login'
+
+        fill_in(:username, :with => "trackstar")
+        fill_in(:password, :with => "shoes")
+        click_button 'submit'
+
+        visit '/reports/new'
+        fill_in :report_title, with: "Best Race Ever"
+        fill_in :report_score, with: 5
+        fill_in :report_year, with: 2015
+        fill_in :report_content, with: "The BEST RACE EVER"
+        fill_in :report_runs_per_week, with: 5
+        fill_in :report_miles_per_week, with: 35
+        choose "race_0"
+        fill_in :new_race_name, with: "Santa Claus 5k"
+        fill_in :new_race_location, with: "Tampa, FL"
+        fill_in :new_race_next_race_day, with: "December 25th, 2017"
+        fill_in :new_race_distance, with: "5k"
+        click_button "Create New Report"
+        report = Report.last
+        race = Race.last
+        expect(Report.all.count).to eq(2)
+        expect(report.title).to eq("Best Race Ever")
+        expect(report.score).to eq(5)
+        expect(report.year).to eq(2015)
+        expect(report.content).to eq("The BEST RACE EVER")
+        expect(report.runs_per_week).to eq(5)
+        expect(report.miles_per_week).to eq(35)
+        expect(report.race).to eq(race)
+      end
     end
 
-    it 'allows you to create a report with a new race' do
-      visit '/reports/new'
-      fill_in :report_title, with: "Best Race Ever"
-      fill_in :report_score, with: 5
-      fill_in :report_year, with: 2015
-      fill_in :report_content, with: "The BEST RACE EVER"
-      fill_in :report_runs_per_week, with: 5
-      fill_in :report_miles_per_week, with: 35
-      check "race_0"
-      fill_in :new_race_name, with: "Santa Claus 5k"
-      fill_in :new_race_location, with: "Tampa, FL"
-      fill_in :new_race_next_race_day, with: "December 25th, 2017"
-      fill_in :distance, with: "5k"
-      click_button "Create New Report"
-      report = Report.last
-      race = Race.last
-      expect(Report.all.count).to eq(2)
-      expect(report.title).to eq("Best Race Ever")
-      expect(report.score).to eq(5)
-      expect(report.year).to eq(2015)
-      expect(report.content).to eq("The BEST RACE EVER")
-      expect(report.runs_per_week).to eq(5)
-      expect(report.miles_per_week).to eq(35)
-      expect(report.race).to eq(Race.first)
-    end
   end
 
 end
