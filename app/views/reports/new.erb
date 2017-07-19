@@ -1,24 +1,24 @@
 <h1>Create a New Race Report</h2>
 <form method = "POST" action = "/reports">
 
-  <label for="select_race">"Select the race you are writing a race report on:"</label>
+  <label for="select_race">Select the race you are writing a race report on:</label><br>
   <form action="">
     <%Race.all.each do |race|%>
-      <input type="radio" id="race_<%=race.id%>" name="report[race_id]" value="<%=race.id%>">
+      <input type="radio" id="race_<%=race.id%>" name="report[race_id]" value="<%=race.id%>"><%=race.name%></input><br>
     <%end%>
-      <input type="radio" id="race_0" name="report[race_id]" value="0">
+      <input type="radio" id="race_0" name="report[race_id]" value="0">None</input>
   </form>
   <br><br>
 
-  <label for="create_race">Or create a new race to write a report on:</label>
+  <label for="create_race">Or create a new race to write a report on:</label><br><br>
   <label for="race_name">Race Name</label>
   <input type="text" name="race[name]" id="new_race_name"><br><br>
   <label for="race_location">Race Location</label>
   <input type="text" name="race[location]" id="new_race_location"><br><br>
   <label for="race_next_race_date">Next Race Day</label>
-  <input type="text" name="race[next_race_day]" value="new_race_next_race_day"><br><br>
+  <input type="text" name="race[next_race_day]" id="new_race_next_race_day"><br><br>
   <label for="race_distance">Race Distance</label>
-  <input type="text" name="race[distance]" value="new_race_distance"><br><br>
+  <input type="text" name="race[distance]" id="new_race_distance"><br><br>
 
   <br><br>
 
@@ -34,7 +34,7 @@
   <label for="miles_per_week">What was your average miles run per week leading up to this race?</label>
   <input type="text" name="report[miles_per_week]" id="report_miles_per_week"><br><br>
   <label for="runs_per_week">How many days do you run per week?</label>
-  <input type="text" name="report[runs_per_week]" id="report_runs_per_week">
+  <input type="text" name="report[runs_per_week]" id="report_runs_per_week"><br><br>
 
   <input type="submit" value="Create New Report">
 
