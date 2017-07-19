@@ -140,6 +140,22 @@ describe UsersController do
       expect(last_response.location).to include("/")
     end
 
+    it 'does not load /races if user is not logged in' do
+      get '/races'
+      expect(last_response.location).to include("/login")
+    end
+
+    it 'does load /races if user is logged in' do
+      user = User.create(username: "scott", email: "ultra@gmail.com", password: "runningformiles")
+      params = {
+        username: "scott",
+        password: "runningformiles"
+      }
+      post '/login', params
+      get '/races'
+      expect(last_response.status).to eq(200)
+    end
+
   end
 
 
