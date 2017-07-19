@@ -13,7 +13,7 @@ describe ReportsController do
 
   describe "Create Report Page" do
 
-    context 'logged_in' do
+    context 'logged in' do
 
       it 'allows you to view a form to create a new report' do
         user = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
@@ -101,6 +101,12 @@ describe ReportsController do
         expect(report.runs_per_week).to eq(5)
         expect(report.miles_per_week).to eq(35)
         expect(report.race).to eq(race)
+      end
+    end
+    context 'logged out' do
+      it 'does not let a user creat a new report if not logged in' do
+        get '/reports/new'
+        expect(last_response.location).to include("/login")
       end
     end
 
