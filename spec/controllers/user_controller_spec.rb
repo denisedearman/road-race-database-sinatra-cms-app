@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserController do
+describe UsersController do
   before do
     shalane = User.create(username: "shalane", email: "shalane@olympians.net", password: "trackqueen")
   end

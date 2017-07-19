@@ -4,5 +4,16 @@ class ApplicationController < Sinatra::Base
   set :session_secret, "race_secrets"
   set :views, Proc.new { File.join(root, "../views/") }
 
+  helpers do
+    def logged_in?
+      !!current_user
+    end
+
+    def current_user
+      @current_user = User.find_by(id: session[:user_id]) if session[:user_id]
+    end
+
+  end
+
 
 end
