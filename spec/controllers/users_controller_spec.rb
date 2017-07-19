@@ -122,6 +122,26 @@ describe UsersController do
 
   end
 
+  describe "Logout" do
+
+    it 'lets a user logout if already logged in' do
+      user = User.create(username: "scott", email: "ultra@gmail.com", password: "runningformiles")
+      params = {
+        username: "scott",
+        password: "runningformiles"
+      }
+      post '/login', params
+      get '/logout'
+      expect(last_response.location).to include("/login")
+    end
+
+    it 'does not allow a user to logout if not logged in' do
+      get '/logout'
+      expect(last_response.location).to include("/")
+    end
+
+  end
+
 
 
 end
