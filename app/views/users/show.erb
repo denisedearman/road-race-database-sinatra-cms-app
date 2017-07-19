@@ -1,0 +1,17 @@
+<h1><%=@user.username%> Reports:</h1>
+<%@user.reports.each do |report|%>
+  <div class="report">
+    <h2><%=report.race.name%> - <%=report.title%><h2>
+      <div class="report-stats">
+        <ul>
+          <li><%=report.year%></li>
+          <li><%=report.score%></li>
+          <li><%=report.runs_per_week%></li>
+          <li><%=report.miles_per_week%></li>
+        </ul>
+      </div>
+      <div class="report-content">
+        <p><%=report.content%></p>
+      </div>
+  </div>
+<%end%>
