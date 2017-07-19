@@ -158,6 +158,23 @@ describe UsersController do
 
   end
 
+  describe 'User Show Page' do
+    it 'shows all single users reports'  do
+      user = User.create(username: "scott", email: "ultra@gmail.com", password: "runningformiles")
+
+      queens_ten = Race.create(name: "Queens 10k", location: "Queens, NY", next_race_day: "June 10th, 2018", distance: "10k")
+      badwater = Race.create(name: "Badwater 135", location: "Badwater Basin, CA", next_race_day: "July 10th, 2017", distance: "135 miles")
+
+      ten_k_report = Report.create(user: user, race: queens_ten, title: "good race", score: 4, year: 2015, content: "good race overall.", runs_per_week: 10, miles_per_week: 80)
+      badwater_win = Report.create(user: user, race: badwater, title: "Win", score: 2, year: 2007, content: "it's the toughest footrace for a reason", runs_per_week: 15, miles_per_week: 125)
+
+      get "/users/#{user.slug}"
+
+      expect(last_response.body).to include("Win")
+      expect(last_response.body).to include("good race overall")
+    end
+  end
+
 
 
 end
