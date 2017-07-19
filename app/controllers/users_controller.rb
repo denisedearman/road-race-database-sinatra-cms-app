@@ -18,6 +18,15 @@ class UsersController < ApplicationController
     end
   end
 
+  get '/logout' do
+    if !logged_in?
+      redirect '/'
+    else
+      session.clear
+      redirect '/login'
+    end
+  end
+
   get '/signup' do
     if !logged_in?
       erb :'/users/new'
