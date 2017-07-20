@@ -39,6 +39,40 @@ describe RacesController do
 
   end
 
+  describe 'Show Race Page' do
+
+    context 'logged in' do
+
+      it 'allows you to view race detail information' do
+        user = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
+
+        visit '/login'
+
+        fill_in(:username, :with => "trackstar")
+        fill_in(:password, :with => "shoes")
+        click_button 'submit'
+
+        race = Race.find_by(name: "St George Marathon")
+        visit "/races/#{race.slug}"
+
+        expect(page.body).to include(race.name)
+        expect(page.body).to include(race.location)
+        expect(page.body).to include(race.distance)
+        expect(page.body).to include(race.next_race_day)
+      end
+
+      it 'allows you to view all reports on the race' do
+
+      end
+    end
+
+    context 'logged out' do
+      it 'does not let you view the races show page' do
+
+      end
+    end
+  end
+
 
 
 
