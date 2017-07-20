@@ -43,4 +43,19 @@ class ReportsController < ApplicationController
     end
   end
 
+  patch '/reports/:id' do
+    if !logged_in?
+      redirect '/login'
+    else
+      report = Report.find_by_id(params[:id])
+      report.update(params[:report])
+      if params[:report][:race_id].to_i == 0 || params[:race][:name] != ""
+        race= Race.create(params[:race])
+        report.race = race
+      end
+      report.save
+      redirect "/reports/#{report.id}"
+    end
+  end
+
 end

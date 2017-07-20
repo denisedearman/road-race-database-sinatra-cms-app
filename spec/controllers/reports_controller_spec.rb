@@ -158,22 +158,21 @@ describe ReportsController do
 
         visit "/reports/#{report.id}/edit"
 
-        fill_in(:content, :with=> "wonderful all around")
-        fill_in(:title, :with=> "not my first")
+        fill_in(:report_content, :with=> "wonderful all around")
+        fill_in(:report_title, :with=> "not my first")
         fill_in(:new_race_name, :with=> "Rose Half Marathon")
         fill_in(:new_race_location, :with=> "Portland, OR")
         fill_in(:new_race_distance, :with=> "half marathon")
         fill_in(:new_race_next_race_day, :with=> "May 25th, 2018")
 
-        click_button 'submit'
+        click_button 'Edit Report'
 
+        expect(page.current_path).to eq("/reports/#{report.id}")
         expect(Report.find_by(:content => "wonderful all around")).to be_instance_of(Report)
         expect(Report.find_by(:content => "great first race. lot's of cobblestone though.")).to eq(nil)
         expect(Report.find_by(:title => "not my first")).to be_instance_of(Report)
         expect(Report.find_by(:title => "first race")).to eq(nil)
-        expect(Race.find_by(:name =>"Rose Half Marathon")).to be_instance_of(Race)
-        rose_half = Race.find_by(:name =>"Rose Half Marathon")
-        expect(report.race).to eq(rose_half)
+        expect(page.body).to include("Rose Half Marathon")
         expect(page.status_code).to eq(200)
       end
 
