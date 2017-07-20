@@ -111,6 +111,33 @@ describe ReportsController do
     end
   end
 
+  describe 'Edit Report Page' do
+    context 'logged in' do
+      it 'allows you to view edit report page' do
+
+      end
+
+      it 'does not allow a user to edit a report they did not create' do
+
+      end
+
+      it 'allows a user to edit their own report' do
+
+      end
+
+    end
+
+    context 'logged out' do
+
+      it 'does not let a user edit a report' do
+        report = Report.find_by(title: "first race")
+        get "/reports/#{report.id}/edit"
+        expect(last_response.location).to include("/login")
+      end
+
+    end
+  end
+
   describe 'Show Report Page' do
     context 'logged in' do
 
