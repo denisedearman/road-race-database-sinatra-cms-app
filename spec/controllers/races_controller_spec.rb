@@ -94,6 +94,41 @@ describe RacesController do
     end
   end
 
+  describe 'Create Race Page' do
+
+    context 'logged in' do
+
+      it 'allows you to view a form for a new race' do
+        user = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
+
+        visit '/login'
+
+        fill_in(:username, :with => "trackstar")
+        fill_in(:password, :with => "shoes")
+        click_button 'submit'
+
+        visit '/races/new'
+        expect(page.body).to include('<form')
+        expect(page.body).to include('race[name]')
+        expect(page.body).to include('race[location]')
+        expect(page.body).to include('race[distance]')
+        expect(page.body).to include('race[next_race_day]')
+      end
+
+      it 'allows you to create a new race' do
+
+      end
+    end
+
+    context 'logged out' do
+
+      it 'does not allow you to create a new race' do
+
+      end
+
+    end
+  end
+
 
 
 
