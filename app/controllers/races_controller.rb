@@ -9,6 +9,15 @@ class RacesController < ApplicationController
     end
   end
 
+  post '/races' do
+    if !logged_in?
+      redirect '/login'
+    else
+      Race.create(params[:race])
+      redirect '/races'
+    end
+  end
+
   get '/races/new' do
     if !logged_in?
       redirect '/login'

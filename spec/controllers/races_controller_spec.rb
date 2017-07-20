@@ -131,7 +131,7 @@ describe RacesController do
         fill_in :race_distance, with: "5k"
         click_button "Create New Race"
         race = Race.last
-        expect(Race.all.count).to eq(2)
+        expect(Race.all.count).to eq(3)
         expect(race.name).to eq("Santa Claus 5k")
         expect(race.location).to eq("Tampa, FL")
         expect(race.next_race_day).to eq("December 25th, 2017")
@@ -142,10 +142,8 @@ describe RacesController do
     context 'logged out' do
 
       it 'does not allow you to create a new race' do
-        it 'does not let you view the races show page' do
-          get "/races/new"
-          expect(last_response.location).to include('/login')
-        end
+        get "/races/new"
+        expect(last_response.location).to include('/login')
       end
 
     end
