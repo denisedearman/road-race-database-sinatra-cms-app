@@ -23,4 +23,13 @@ class ReportsController < ApplicationController
     end
   end
 
+  get '/reports/:id' do
+    if !logged_in?
+      redirect '/login'
+    else
+      @report = Report.find_by_id(params[:id])
+      erb :'reports/show'
+    end
+  end
+
 end

@@ -1,0 +1,15 @@
+<div class="report">
+  <h2><%=@report.race.name%>- <%=@report.title%><h2>
+    <div class="report-stats">
+      <ul>
+        <li>User: <%=@report.user.username%></li>
+        <li>Year: <%=@report.year%></li>
+        <li>Score Out of 5: <%=@report.score%></li>
+        <li>Avg. Runs Per Week: <%=@report.runs_per_week%></li>
+        <li>Avg. Miles Per Week: <%=@report.miles_per_week%></li>
+      </ul>
+    </div>
+    <div class="report-content">
+      <p>Review: <%=@report.content%></p>
+    </div>
+</div>
