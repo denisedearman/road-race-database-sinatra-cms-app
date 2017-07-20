@@ -87,7 +87,9 @@ describe RacesController do
 
     context 'logged out' do
       it 'does not let you view the races show page' do
-
+        race = Race.find_by(name: "St George Marathon")
+        visit "/races/#{race.slug}"
+        expect(last_response.location).to include('/login')
       end
     end
   end
