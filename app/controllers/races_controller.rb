@@ -1,20 +1,28 @@
 class RacesController < ApplicationController
 
   get '/races' do
-    if logged_in?
+    if !logged_in?
+      redirect '/login'
+    else
       @races = Race.all
       erb :'races/index'
-    else
+    end
+  end
+
+  get '/races/new' do
+    if !logged_in?
       redirect '/login'
+    else
+      erb :'races/new'
     end
   end
 
   get '/races/:slug' do
-    if logged_in?
+    if !logged_in?
+      redirect '/login'
+    else
       @race = Race.find_by_slug(params[:slug])
       erb :'races/show'
-    else
-      redirect '/login'
     end
   end
 
