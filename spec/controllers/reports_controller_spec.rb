@@ -131,7 +131,18 @@ describe ReportsController do
       end
 
       it 'does not allow a user to edit a report they did not create' do
+        user = User.find_by(username: "average joe")
+        not_avg_joe = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
+        joes_report = Report.find_by(title: "first race")
 
+        visit '/login'
+
+        fill_in(:username, :with => "trackstar")
+        fill_in(:password, :with => "shoes")
+        click_button 'submit'
+
+        visit "/reports/#{joes_report.id}/edit"
+        expect(page.current_path).to eq('/races')
       end
 
       it 'allows a user to edit their own report' do
