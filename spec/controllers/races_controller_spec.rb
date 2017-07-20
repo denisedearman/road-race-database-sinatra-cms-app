@@ -116,14 +116,36 @@ describe RacesController do
       end
 
       it 'allows you to create a new race' do
+        user = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
 
+        visit '/login'
+
+        fill_in(:username, :with => "trackstar")
+        fill_in(:password, :with => "shoes")
+        click_button 'submit'
+
+        visit '/races/new'
+        fill_in :race_name, with: "Santa Claus 5k"
+        fill_in :race_location, with: "Tampa, FL"
+        fill_in :race_next_race_day, with: "December 25th, 2017"
+        fill_in :race_distance, with: "5k"
+        click_button "Create New Race"
+        race = Race.last
+        expect(Race.all.count).to eq(2)
+        expect(race.name).to eq("Santa Claus 5k")
+        expect(race.location).to eq("Tampa, FL")
+        expect(race.next_race_day).to eq("December 25th, 2017")
+        expect(race.distance).to eq("5k")
       end
     end
 
     context 'logged out' do
 
       it 'does not allow you to create a new race' do
-
+        it 'does not let you view the races show page' do
+          get "/races/new"
+          expect(last_response.location).to include('/login')
+        end
       end
 
     end
