@@ -114,7 +114,20 @@ describe ReportsController do
   describe 'Edit Report Page' do
     context 'logged in' do
       it 'allows you to view edit report page' do
+        user = User.find_by(username: "average joe")
+        visit '/login'
 
+        fill_in(:username, :with => "average joe")
+        fill_in(:password, :with => "password123")
+        click_button 'submit'
+
+        report = Report.find_by(title: "first race")
+
+        visit "/reports/#{report.id}/edit"
+
+        expect(page.status_code).to eq(200)
+        expect(page.body).to include(report.title)
+        expect(page.body).to include(report.content)
       end
 
       it 'does not allow a user to edit a report they did not create' do
