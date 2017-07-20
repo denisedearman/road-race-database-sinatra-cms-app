@@ -146,7 +146,28 @@ describe ReportsController do
       end
 
       it 'allows a user to edit their own report' do
+        user = User.find_by(username: "average joe")
+        visit '/login'
 
+        fill_in(:username, :with => "average joe")
+        fill_in(:password, :with => "password123")
+        click_button 'submit'
+
+        report = Report.find_by(title: "first race")
+
+        visit "/reports/#{report.id}/edit"
+
+        fill_in(:content, :with=> "wonderful all around")
+        fill_in(:title, :with=> "not my first")
+        
+        click_button 'submit'
+
+        expect(Report.find_by(:content => "wonderful all around")).to be_instance_of(Report)
+        expect(Report.find_by(:content => "great first race. lot's of cobblestone though.")).to eq(nil)
+        expect(Report.find_by(:title => "not my first")).to be_instance_of(Report)
+        expect(Report.find_by(:title => "first race")).to eq(nil)
+
+        expect(page.status_code).to eq(200)
       end
 
     end
