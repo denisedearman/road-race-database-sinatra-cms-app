@@ -23,6 +23,17 @@ class ReportsController < ApplicationController
     end
   end
 
+  get '/reports/:id/edit' do
+    if !logged_in?
+      redirect '/login'
+    elsif current_user != Report.find_by_id(params[:id]).user
+      redirect '/races'
+    else
+      @report = Report.find_by_id(params[:id])
+      erb :'reports/edit'
+    end
+  end
+
   get '/reports/:id' do
     if !logged_in?
       redirect '/login'

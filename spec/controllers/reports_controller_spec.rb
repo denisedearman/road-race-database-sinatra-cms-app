@@ -128,6 +128,7 @@ describe ReportsController do
         expect(page.status_code).to eq(200)
         expect(page.body).to include(report.title)
         expect(page.body).to include(report.content)
+        expect(page.body).to include(report.race.name)
       end
 
       it 'does not allow a user to edit a report they did not create' do
@@ -159,14 +160,20 @@ describe ReportsController do
 
         fill_in(:content, :with=> "wonderful all around")
         fill_in(:title, :with=> "not my first")
-        
+        fill_in(:new_race_name, :with=> "Rose Half Marathon")
+        fill_in(:new_race_location, :with=> "Portland, OR")
+        fill_in(:new_race_distance, :with=> "half marathon")
+        fill_in(:new_race_next_race_day, :with=> "May 25th, 2018")
+
         click_button 'submit'
 
         expect(Report.find_by(:content => "wonderful all around")).to be_instance_of(Report)
         expect(Report.find_by(:content => "great first race. lot's of cobblestone though.")).to eq(nil)
         expect(Report.find_by(:title => "not my first")).to be_instance_of(Report)
         expect(Report.find_by(:title => "first race")).to eq(nil)
-
+        expect(Race.find_by(:name =>"Rose Half Marathon")).to be_instance_of(Race)
+        rose_half = Race.find_by(:name =>"Rose Half Marathon")
+        expect(report.race).to eq(rose_half)
         expect(page.status_code).to eq(200)
       end
 
