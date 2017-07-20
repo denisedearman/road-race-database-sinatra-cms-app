@@ -32,7 +32,7 @@ describe RacesController do
     context 'logged out' do
 
       it 'does not allow you to view all races' do
-        visit '/races'
+        get '/races'
         expect(last_response.location).to include('/login')
       end
     end

@@ -96,15 +96,13 @@ describe UsersController do
 
     it 'loads the races index after login' do
       user = User.create(username: "scott", email: "ultra@gmail.com", password: "runningformiles")
-      params = {
-        username: "scott",
-        password: "runningformiles"
-      }
-      post '/login', params
-      expect(last_response.status).to eq(302)
-      follow_redirect!
-      expect(last_response.status).to eq(200)
-      expect(last_response.location).to include("/races")
+      visit '/login'
+
+      fill_in(:username, :with => "scott")
+      fill_in(:password, :with => "runningformiles")
+      
+      click_button 'submit'
+      expect(page.current_path).to eq('/races')
     end
 
     it 'does not let the user view login page if already logged in' do
