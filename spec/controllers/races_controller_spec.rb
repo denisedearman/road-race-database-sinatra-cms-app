@@ -76,19 +76,19 @@ describe RacesController do
         visit "/races/#{race.slug}"
         expect(page.body).to include(good_race.title)
         expect(page.body).to include(good_race.content)
-        expect(page.body).to include(good_race.score)
-        expect(page.body).to include(good_race.year)
+        expect(page.body).to include(good_race.score.to_s)
+        expect(page.body).to include(good_race.year.to_s)
         expect(page.body).to include(bad_race.title)
         expect(page.body).to include(bad_race.content)
-        expect(page.body).to include(bad_race.score)
-        expect(page.body).to include(bad_race.year)
+        expect(page.body).to include(bad_race.score.to_s)
+        expect(page.body).to include(bad_race.year.to_s)
       end
     end
 
     context 'logged out' do
       it 'does not let you view the races show page' do
         race = Race.find_by(name: "St George Marathon")
-        visit "/races/#{race.slug}"
+        get "/races/#{race.slug}"
         expect(last_response.location).to include('/login')
       end
     end
