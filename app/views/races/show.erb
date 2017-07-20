@@ -1,0 +1,22 @@
+<h1><%=@race.name%></h1>
+<h2><%=@race.location%></h2>
+<h2><%=@race.distance%></h2>
+<h2><%=@race.next_race_day%></h2>
+<br>
+<h2>Race Reports:</h2>
+  <%@race.reports.each do |report|%>
+    <div class="report">
+      <h2><%=report.race.name%> - <%=report.title%><h2>
+        <div class="report-stats">
+          <ul>
+            <li><%=report.year%></li>
+            <li><%=report.score%></li>
+            <li><%=report.runs_per_week%></li>
+            <li><%=report.miles_per_week%></li>
+          </ul>
+        </div>
+        <div class="report-content">
+          <p><%=report.content%></p>
+        </div>
+    </div>
+  <%end%>
