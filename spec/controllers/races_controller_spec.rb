@@ -62,7 +62,26 @@ describe RacesController do
       end
 
       it 'allows you to view all reports on the race' do
+        user = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
+        race = Race.find_by(name: "St George Marathon")
+        good_race = Report.create(user: user, race: race, title: "Great times", score: 5, year: 2015, content: "All the pieces fell into place", miles_per_week: 60, runs_per_week: 5)
+        bad_race = Report.create(user: user, race: race, title: "Poor times", score: 2, year: 2011, content: "Bonked at mile 15", miles_per_week: 35, runs_per_week: 3)
+        visit '/login'
 
+        fill_in(:username, :with => "trackstar")
+        fill_in(:password, :with => "shoes")
+        click_button 'submit'
+
+
+        visit "/races/#{race.slug}"
+        expect(page.body).to include(good_race.title)
+        expect(page.body).to include(good_race.content)
+        expect(page.body).to include(good_race.score)
+        expect(page.body).to include(good_race.year)
+        expect(page.body).to include(bad_race.title)
+        expect(page.body).to include(bad_race.content)
+        expect(page.body).to include(bad_race.score)
+        expect(page.body).to include(bad_race.year)
       end
     end
 
