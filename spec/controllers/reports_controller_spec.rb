@@ -3,6 +3,7 @@ require 'spec_helper'
 describe ReportsController do
   before do
     newbie = User.create(username: "average joe", email: "john@smith.com", password: "password123")
+    malicious = User.create(username: "malicious", email: "messy@gmail.com", password: "stayaway")
     turkey_trot = Race.create(name: "Turkey Trot Orlando", location: "Orlando, FL", next_race_day: "November 23rd, 2017", distance: "5k")
     first_5k = Report.create(user: newbie, race: turkey_trot, title: "first race", score: 5, year: 2015, content: "great first race. lot's of cobblestone though.", runs_per_week: 3, miles_per_week: 12)
   end
@@ -113,6 +114,7 @@ describe ReportsController do
 
   describe 'Delete Report' do
     context 'logged in' do
+
       it 'deletes a report if user owns the report' do
         user = User.find_by(username: "average joe")
         visit '/login'
@@ -127,30 +129,15 @@ describe ReportsController do
 
         expect(page.status_code).to eq(200)
         expect(Report.find_by(content: "great first race. lot's of cobblestone though.")).to eq(nil)
-        expect(page.current_path).to eq("/user/#{user.slug}")
+        expect(page.current_path).to eq("/users/#{user.slug}")
       end
 
-      it 'does not delete a report if user does not own it' do
-        user = User.find_by(username: "average joe")
-        visit '/login'
-
-        fill_in(:username, :with => "average joe")
-        fill_in(:password, :with => "password123")
-        click_button 'submit'
-
-        report = Report.find_by(title: "first race")
-        page.driver.submit :delete, "/reports/#{report.id}/delete", {}
-
-        expect(page.status_code).to eq(200)
-        expect(Report.find_by(content: "great first race. lot's of cobblestone though.")).to be_instance_of(Report)
-        expect(page.current_path).to eq("/user/#{user.slug}")
-      end
     end
 
     context 'logged out' do
       it 'does not delete a report' do
         report = Report.first
-        get "/reports/#{report.id}/delete"
+        delete "/reports/#{report.id}/delete"
         expect(last_response.location).to include("/login")
       end
 

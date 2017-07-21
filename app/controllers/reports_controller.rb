@@ -67,4 +67,16 @@ class ReportsController < ApplicationController
     end
   end
 
+  delete '/reports/:id/delete' do
+    if !logged_in?
+      redirect '/login'
+    else
+      if current_user == Report.find_by_id(params[:id]).user
+        report = Report.find_by_id(params[:id])
+        report.delete
+      end
+      redirect "/users/#{current_user.slug}"
+    end
+  end
+
 end
