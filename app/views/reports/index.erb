@@ -1,18 +1,29 @@
-<h1>Race Reports</h1>
+<div class="jumbotron">
+  <h1>Race Reports</h1>
+</div>
 <%@reports.each do |report|%>
-  <div class="report">
-    <h2><a href="/reports/<%=report.id%>"><%=report.race.name%>- <%=report.title%></a><h2>
-      <div class="report-stats">
-        <ul>
-          <li>User: <%=report.user.username%></li>
-          <li>Year: <%=report.year%></li>
-          <li>Score Out of 5: <%=report.score%></li>
-          <li>Avg. Runs Per Week: <%=report.runs_per_week%></li>
-          <li>Avg. Miles Per Week: <%=report.miles_per_week%></li>
-        </ul>
+  <hr class="featurette-divider">
+  <div class="row featurette">
+      <div class="col-md-3 col-md-pull-9">
+        <fieldset class="rating">
+          <input type="radio" id="star5_<%=report.id%>" name="rating_<%=report.id%>" value="5" <%='checked' if report.score ==5%> disabled /><label class = "full" for="star5_report.id" title="Awesome - 5 stars"></label>
+          <input type="radio" id="star4_<%=report.id%>" name="rating_<%=report.id%>" value="4" <%='checked' if report.score ==4%>disabled/><label class = "full" for="star4_report.id" title="Pretty good - 4 stars"></label>
+          <input type="radio" id="star3_<%=report.id%>" name="rating_<%=report.id%>" value="3" <%='checked' if report.score ==3%>disabled/><label class = "full" for="star3_report.id" title="Meh - 3 stars"></label>
+          <input type="radio" id="star2_<%=report.id%>" name="rating_<%=report.id%>" value="2" <%='checked' if report.score ==2%>disabled/><label class = "full" for="star2_report.id" title="Kinda bad - 2 stars"></label>
+          <input type="radio" id="star1_<%=report.id%>" name="rating_<%=report.id%>" value="1"<%='checked' if report.score ==1%>disabled/><label class = "full" for="star1_report.id" title="Sucks big time - 1 star"></label>
+        </fieldset>
       </div>
-      <div class="report-content">
-        <p>Review: <%=report.content%></p>
-      </div>
+        <div class="col-md-9 col-md-pull-3">
+          <h2 class="featurette-heading"><%=report.race.name%> - <span class="text-muted"><%=report.title%></span></h2>
+          <ul>
+            <li>User: <%=report.user.username%></li>
+            <li>Year: <%=report.year%></li>
+            <li>Score Out of 5: <%=report.score%></li>
+            <li>Avg. Runs Per Week: <%=report.runs_per_week%></li>
+            <li>Avg. Miles Per Week: <%=report.miles_per_week%></li>
+          </ul>
+          <p>Review: <%=report.content%></p>
+        </div>
+
   </div>
 <%end%>
