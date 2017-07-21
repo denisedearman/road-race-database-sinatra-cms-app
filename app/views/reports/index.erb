@@ -1,6 +1,7 @@
+<h1>Race Reports</h1>
 <%@reports.each do |report|%>
   <div class="report">
-    <h2><%=report.race.name%>- <%=report.title%><h2>
+    <h2><a href="/reports/<%=report.id%>"><%=report.race.name%>- <%=report.title%></a><h2>
       <div class="report-stats">
         <ul>
           <li>User: <%=report.user.username%></li>
