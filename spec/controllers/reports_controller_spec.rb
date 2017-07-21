@@ -222,4 +222,31 @@ describe ReportsController do
     end
   end
 
+  describe 'Reports Index Page' do
+    context 'logged in' do
+      it 'allows you to see all reports' do
+        user = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
+        race = Race.find_by(:name => "Turkey Trot Orlando")
+        report = Report.create(user: user, race: race, title: "Great times", score: 5, year: 2015, content: "All the pieces fell into place", miles_per_week: 60, runs_per_week: 5)
+
+        visit '/login'
+
+        fill_in(:username, :with => "trackstar")
+        fill_in(:password, :with => "shoes")
+        click_button 'submit'
+
+        visit '/reports'
+        expect(page.body).to include("first race")
+        expect(page.body).to include("Great times")
+      end
+    end
+
+    context 'logged out' do
+      it 'does not allow you to view all reports' do
+        get '/reports'
+        expect(last_response.location).to include("/login")
+      end
+    end
+  end
+
 end
