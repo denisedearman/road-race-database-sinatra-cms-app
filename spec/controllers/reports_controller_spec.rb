@@ -111,6 +111,16 @@ describe ReportsController do
     end
   end
 
+  describe 'Delete Report' do
+    context 'logged in' do
+
+    end
+
+    context 'logged out' do
+      
+    end
+  end
+
   describe 'Edit Report Page' do
     context 'logged in' do
       it 'allows you to view edit report page' do
@@ -192,7 +202,7 @@ describe ReportsController do
   describe 'Show Report Page' do
     context 'logged in' do
 
-      it 'allows you to see a single report' do
+      it 'allows you to see a single report of a another user' do
         user = User.create(:username => "trackstar", :email => "ilovetorun@aol.com", :password => "shoes")
 
         visit '/login'
@@ -210,6 +220,32 @@ describe ReportsController do
         expect(page.body).to include(report.year.to_s)
         expect(page.body).to include(report.user.username)
         expect(page.body).to include(report.race.name)
+        expect(page.body).to_not include("Edit Report")
+        expect(page.body).to_not include("Delete Report")
+
+      end
+
+      it 'allows user to see a single report with edit and delete buttons for report they wrote' do
+        user = User.find_by(username: "average joe")
+
+        visit '/login'
+
+        fill_in(:username, :with => "average joe")
+        fill_in(:password, :with => "password123")
+        click_button 'submit'
+
+        report = Report.find_by(title: "first race")
+        visit "/reports/#{report.id}"
+
+        expect(page.body).to include(report.title)
+        expect(page.body).to include(report.content)
+        expect(page.body).to include(report.score.to_s)
+        expect(page.body).to include(report.year.to_s)
+        expect(page.body).to include(report.user.username)
+        expect(page.body).to include(report.race.name)
+        expect(page.body).to include("Edit Report")
+        expect(page.body).to include("Delete Report")
+
       end
     end
 

@@ -12,4 +12,13 @@
     <div class="report-content">
       <p>Review: <%=@report.content%></p>
     </div>
+    <%if current_user == @report.user%>
+      <form method="GET" action="/reports/<%=@report.id%>/edit">
+        <input type="submit" value="Edit Report">
+      </form>
+      <form method="POST" action="/reports/<%=@report.id%>/delete">
+        <input id="hidden" type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="Delete Report">
+      </form>
+    <%end%>
 </div>
