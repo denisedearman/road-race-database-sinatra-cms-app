@@ -8,6 +8,15 @@ class ReportsController < ApplicationController
     end
   end
 
+  get '/reports' do
+    if !logged_in?
+      redirect '/login'
+    else
+      @reports = Report.all
+      erb :'reports/index'
+    end
+  end
+
   post '/reports' do
     if !logged_in?
       redirect '/login'
