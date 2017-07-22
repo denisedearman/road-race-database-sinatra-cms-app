@@ -1,17 +1,21 @@
-<h1><%=@user.username%> Reports:</h1>
+<h1><%=@user.username%>'s Reports:</h1>
 <%@user.reports.each do |report|%>
-  <div class="report">
-    <h2><%=report.race.name%> - <%=report.title%><h2>
-      <div class="report-stats">
-        <ul>
-          <li><%=report.year%></li>
-          <li><%=report.score%></li>
-          <li><%=report.runs_per_week%></li>
-          <li><%=report.miles_per_week%></li>
-        </ul>
+<hr class="featurette-divider">
+  <div class="row featurette">
+    <div class="col-md-3 col-md-pull-9">
+      <fieldset class="rating">
+        <input type="radio" id="star5_<%=report.id%>" name="rating_<%=report.id%>" value="5" <%='checked' if report.score ==5%> disabled/><label class = "full" for="star5_report.id" title="Awesome"></label>
+        <input type="radio" id="star4_<%=report.id%>" name="rating_<%=report.id%>" value="4" <%='checked' if report.score ==4%>disabled/><label class = "full" for="star4_report.id" title="Pretty good"></label>
+        <input type="radio" id="star3_<%=report.id%>" name="rating_<%=report.id%>" value="3" <%='checked' if report.score ==3%>disabled/><label class = "full" for="star3_report.id" title="Okay"></label>
+        <input type="radio" id="star2_<%=report.id%>" name="rating_<%=report.id%>" value="2" <%='checked' if report.score ==2%>disabled/><label class = "full" for="star2_report.id" title="Kinda bad"></label>
+        <input type="radio" id="star1_<%=report.id%>" name="rating_<%=report.id%>" value="1"<%='checked' if report.score ==1%>disabled/><label class = "full" for="star1_report.id" title="Bad"></label>
+      </fieldset>
+    </div>
+      <div class="col-md-9 col-md-pull-3">
+        <h2 class="featurette-heading">"<%=report.title%>" - <%=report.user.username%></h2>
+          <h3 class="featurette-heading"><%=report.race.name%> <%=report.year%></h3>
+         <h4><a href="/reports/<%=report.id%>">Read the full review.</a><h4>
       </div>
-      <div class="report-content">
-        <p><%=report.content%></p>
-      </div>
+
   </div>
 <%end%>

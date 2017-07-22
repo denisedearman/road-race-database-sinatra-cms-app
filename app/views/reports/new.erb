@@ -1,40 +1,39 @@
-<h1>Create a New Race Report</h2>
-<form method = "POST" action = "/reports">
 
-  <label for="select_race">Select the race you are writing a race report on:</label><br>
+<form method = "POST" action = "/reports">
+  <h1>Create a New Race Report</h2>
+  <legend>Select the race you are writing a race report on:</legend><br>
 
     <%Race.all.each do |race|%>
-      <input id="race_<%=race.id%>" type="radio"  name="report[race_id]" value="<%=race.id%>"><%=race.name%></input><br>
+      <input id="race_<%=race.id%>" type="radio"  name="report[race_id]" value="<%=race.id%>">  <%=race.name%></input><br><br>
     <%end%>
-      <input id="race_0" type="radio" name="report[race_id]" value="0">None</input>
+      <input id="race_0" type="radio" name="report[race_id]" value="0">  None</input>
 
   <br><br>
 
-  <label for="create_race">Or create a new race to write a report on:</label><br><br>
+  <legend>Or create a new race to write a report on:</legend>
   <label for="race_name">Race Name</label>
-  <input type="text" name="race[name]" id="new_race_name"><br><br>
+  <input type="text" name="race[name]" id="new_race_name"><br>
   <label for="race_location">Race Location</label>
-  <input type="text" name="race[location]" id="new_race_location"><br><br>
+  <input type="text" name="race[location]" id="new_race_location"><br>
   <label for="race_next_race_date">Next Race Day</label>
-  <input type="text" name="race[next_race_day]" id="new_race_next_race_day"><br><br>
+  <input type="text" name="race[next_race_day]" id="new_race_next_race_day"><br>
   <label for="race_distance">Race Distance</label>
-  <input type="text" name="race[distance]" id="new_race_distance"><br><br>
+  <input type="text" name="race[distance]" id="new_race_distance"><br>
 
-  <br><br>
 
-  <label for="new_report">New Race Report</label><br><br>
+  <legend>New Race Report</legend><br>
   <label for="title">Title</label>
-  <input type="text" name="report[title]" id="report_title"><br><br>
+  <input type="text" name="report[title]" id="report_title"><br>
   <label for="score">Score (0 to 5)</label>
-  <input type="text" name="report[score]" id="report_score"><br><br>
+  <input type="text" name="report[score]" id="report_score"><br>
   <label for="year">Year</label>
-  <input type="text" name="report[year]" id="report_year"><br><br>
-  <label for="content">Describe your race experience</label>
-  <input type="text" name="report[content]" id="report_content"><br><br>
+  <input type="text" name="report[year]" id="report_year"><br>
   <label for="miles_per_week">What was your average miles run per week leading up to this race?</label>
-  <input type="text" name="report[miles_per_week]" id="report_miles_per_week"><br><br>
+  <input type="text" name="report[miles_per_week]" id="report_miles_per_week"><br>
   <label for="runs_per_week">How many days do you run per week?</label>
-  <input type="text" name="report[runs_per_week]" id="report_runs_per_week"><br><br>
+  <input type="text" name="report[runs_per_week]" id="report_runs_per_week"><br>
+  <label for="content">Describe your race experience</label>
+  <textarea rows="4" cols="100" type="text" name="report[content]" id="report_content"></textarea><br>
 
   <input type="submit" value="Create New Report">
 
