@@ -13,6 +13,9 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="/css/rating.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <style>
 
       h1.big-title{
@@ -42,10 +45,10 @@
             left: 0;
             }
 
-        body {
+        /*body {
           position: relative;
           top: 60px;
-        }
+        }*/
         textarea{
           width: auto;
         }
@@ -54,35 +57,37 @@
     </style>
   </head>
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/">Road Race Database</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <%if logged_in?%>
-                <li><a href="/users/<%=current_user.slug%>">Hello, <%=current_user.username%></a></li>
-                <li><a href="/races">Races</a></li>
-                <li><a href="/races/new">Create Race</a></li>
-                <li><a href="/reports">Reports</a></li>
-                <li><a href="/reports/new">Create Report</a></li>
-                <li><a href="/logout">Logout</a></li>
-              <%else%>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/signup">Sign Up</a></li>
-              <%end%>
-
-            </ul>
-          </div><!-- /.nav-collapse -->
-        </div><!-- /.container -->
-      </div><!-- /.navbar-inner -->
-    </div><!-- /.navbar -->
-
+          </button>
+          <a class="navbar-brand" href="/">Road Race Database</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <%if logged_in?%>
+            <li><a href="/races">Races</a></li>
+            <li><a href="/races/new">Create Race</a></li>
+            <li><a href="/reports">Reports</a></li>
+            <li><a href="/reports/new">Create Report</a></li>
+            <%end%>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <%if logged_in?%>
+            <li><a href="/users/<%=current_user.slug%>"><%=current_user.username%></a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+            <%else%>
+            <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <%end%>
+          </ul>
+        </div>
+      </div>
+    </nav>
       <%= yield %>
 
     <script src="/js/bootstrap.min.js"></script>

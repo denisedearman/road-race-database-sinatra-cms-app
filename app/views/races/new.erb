@@ -1,14 +1,32 @@
 <div class="container">
   <h1>Create a New Race</h1>
-  <form method="POST" action="/races">
-    <label for="race_name">Name</label>
-    <input type="text" name="race[name]" id="race_name"><br><br>
-    <label for="race_location">Location</label>
-    <input type="text" name="race[location]" id="race_location"><br><br>
-    <label for="race_next_race_date">Next Race Day</label>
-    <input type="text" name="race[next_race_day]" id="race_next_race_day"><br><br>
-    <label for="race_distance">Distance</label>
-    <input type="text" name="race[distance]" id="race_distance"><br><br>
-    <input type="submit" class="btn btn-success" value="Create New Race">
+  <form method="POST" action="/races" class="col-xs-6">
+    <div class="form-group row">
+      <label class="col-2 col-form-label" for="race_name">Name</label>
+      <div class="col-10">
+        <input type="text" class="form-control" name="race[name]" id="race_name">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label" for="race_location">Location</label>
+      <div class="col-10">
+        <input type="text" class="form-control" name="race[location]" id="race_location">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label" for="race_next_race_date">Next Race Day</label>
+      <div class="col-10">
+        <input type="text" class="form-control" name="race[next_race_day]" id="race_next_race_day">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label" for="race_distance">Distance</label>
+      <div class="col-10">
+        <input  type="text" class="form-control" name="race[distance]" id="race_distance">
+      </div>
+    </div>
+    <div class="form-group row">
+      <input type="submit" class="btn btn-block btn-success" value="Create New Race">
+    </div>
   </form>
 </div>

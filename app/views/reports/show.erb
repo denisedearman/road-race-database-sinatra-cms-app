@@ -26,18 +26,18 @@
 
 
   <%if current_user == @report.user%>
-  <div class="btn-group">
-    <div class="span2">
-      <form method="GET" action="/reports/<%=@report.id%>/edit">
-        <input type="submit" class="btn btn-block btn-primary" value="Edit Report">
-      </form>
+    <div class="form-group row">
+      <div class="col-xs-1">
+        <form method="GET" action="/reports/<%=@report.id%>/edit">
+          <input type="submit" class="btn  btn-primary" value="Edit Report">
+        </form>
+      </div>
+      <div class="col-xs-6">
+        <form method="POST" action="/reports/<%=@report.id%>/delete">
+          <input id="hidden" type="hidden" name="_method" value="DELETE">
+          <input type="submit" class="btn  btn-danger" value="Delete Report">
+        </form>
+      </div>
     </div>
-    <div class="span2">
-      <form method="POST" action="/reports/<%=@report.id%>/delete">
-        <input id="hidden" type="hidden" name="_method" value="DELETE">
-        <input type="submit" class="btn btn-block btn-danger" value="Delete Report">
-      </form>
-    </div>
-  </div>
   <%end%>
 </div>
