@@ -1,24 +1,43 @@
-<div class="report">
-  <h2><%=@report.race.name%>- <%=@report.title%><h2>
-    <div class="report-stats">
-      <ul>
-        <li>User: <%=@report.user.username%></li>
-        <li>Year: <%=@report.year%></li>
-        <li>Score Out of 5: <%=@report.score%></li>
-        <li>Avg. Runs Per Week: <%=@report.runs_per_week%></li>
-        <li>Avg. Miles Per Week: <%=@report.miles_per_week%></li>
-      </ul>
+<div class="container">
+  <div class="row featurette">
+    <div class="pull-left span9">
+      <h1 class="featurette-heading">"<%=@report.title%>" - <%=@report.user.username%></h1>
+      <h2 class="featurette-heading"><%=@report.race.name%> <%=@report.year%></h2>
     </div>
-    <div class="report-content">
-      <p>Review: <%=@report.content%></p>
+    <div class="pull-right span3">
+      <fieldset class="rating">
+        <input type="radio" id="star5_<%=@report.id%>" name="rating_<%=@report.id%>" value="5" <%='checked' if @report.score ==5%> disabled/><label class = "full" for="star5_<%=@report.id%>" title="Awesome"></label>
+        <input type="radio" id="star4_<%=@report.id%>" name="rating_<%=@report.id%>" value="4" <%='checked' if @report.score ==4%> disabled/><label class = "full" for="star4_<%=@report.id%>" title="Pretty good"></label>
+        <input type="radio" id="star3_<%=@report.id%>" name="rating_<%=@report.id%>" value="3" <%='checked' if @report.score ==3%> disabled/><label class = "full" for="star3_<%=@report.id%>" title="Okay"></label>
+        <input type="radio" id="star2_<%=@report.id%>" name="rating_<%=@report.id%>" value="2" <%='checked' if @report.score ==2%> disabled/><label class = "full" for="star2_<%=@report.id%>" title="Kinda bad"></label>
+        <input type="radio" id="star1_<%=@report.id%>" name="rating_<%=@report.id%>" value="1" <%='checked' if @report.score ==1%> disabled/><label class = "full" for="star1_<%=@report.id%>" title="Bad"></label>
+      </fieldset>
+
     </div>
-    <%if current_user == @report.user%>
+  </div>
+  <hr class="solid">
+  <h5>Training: Miles per week: <%=@report.miles_per_week%> Runs per week: <%=@report.runs_per_week%></h5>
+  <hr class="solid">
+  <p>
+    <%=@report.content%>
+  </p>
+  <hr class="solid">
+
+
+
+  <%if current_user == @report.user%>
+  <div class="btn-group">
+    <div class="span2">
       <form method="GET" action="/reports/<%=@report.id%>/edit">
-        <input type="submit" value="Edit Report">
+        <input type="submit" class="btn btn-block btn-primary" value="Edit Report">
       </form>
+    </div>
+    <div class="span2">
       <form method="POST" action="/reports/<%=@report.id%>/delete">
         <input id="hidden" type="hidden" name="_method" value="DELETE">
-        <input type="submit" value="Delete Report">
+        <input type="submit" class="btn btn-block btn-danger" value="Delete Report">
       </form>
-    <%end%>
+    </div>
+  </div>
+  <%end%>
 </div>

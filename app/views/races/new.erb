@@ -1,12 +1,14 @@
-<h1>Create a New Race</h1>
-<form method="POST" action="/races">
-  <label for="race_name">Name</label>
-  <input type="text" name="race[name]" id="race_name"><br><br>
-  <label for="race_location">Location</label>
-  <input type="text" name="race[location]" id="race_location"><br><br>
-  <label for="race_next_race_date">Next Race Day</label>
-  <input type="text" name="race[next_race_day]" id="race_next_race_day"><br><br>
-  <label for="race_distance">Distance</label>
-  <input type="text" name="race[distance]" id="race_distance"><br><br>
-  <input type="submit" value="Create New Race">
-</form>
+<div class="container">
+  <h1>Create a New Race</h1>
+  <form method="POST" action="/races">
+    <label for="race_name">Name</label>
+    <input type="text" name="race[name]" id="race_name"><br><br>
+    <label for="race_location">Location</label>
+    <input type="text" name="race[location]" id="race_location"><br><br>
+    <label for="race_next_race_date">Next Race Day</label>
+    <input type="text" name="race[next_race_day]" id="race_next_race_day"><br><br>
+    <label for="race_distance">Distance</label>
+    <input type="text" name="race[distance]" id="race_distance"><br><br>
+    <input type="submit" class="btn btn-success" value="Create New Race">
+  </form>
+</div>
