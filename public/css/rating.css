@@ -6,7 +6,7 @@ fieldset, label { margin: 0; padding: 0; }
 
 .rating {
   border: none;
-  /*float: left;*/
+  float: top;
 }
 
 .rating > input { display: none; }
@@ -31,10 +31,10 @@ fieldset, label { margin: 0; padding: 0; }
 /***** CSS Magic to Highlight Stars on Hover *****/
 
 .rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+/*.rating:not(:checked) > label:hover, /* hover current star */
+/*.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */*/*/
 
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+/*.rating > input:checked + label:hover, /* hover current star when changing rating */
+/*.rating > input:checked ~ label:hover,*/
+/*.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+/*.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }*/

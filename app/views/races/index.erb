@@ -1,4 +1,9 @@
-<h1>Races</h1>
-<%@races.each do |race|%>
-  <h2><a href="/races/<%=race.slug%>"><%=race.name%></a></h2>
-<%end%>
+<div class="container">
+  <h1>Races</h1>
+  <%@races.each do |race|%>
+  <div class="container">
+      <hr>
+      <h3><a href="/races/<%=race.slug%>"><%=race.name%></a></h3>
+  </div>
+  <%end%>
+</div>

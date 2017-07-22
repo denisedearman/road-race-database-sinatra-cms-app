@@ -1,21 +1,29 @@
-<h1><%=@user.username%>'s Reports:</h1>
-<%@user.reports.each do |report|%>
-<hr class="featurette-divider">
-  <div class="row featurette">
-    <div class="col-md-3 col-md-pull-9">
-      <fieldset class="rating">
-        <input type="radio" id="star5_<%=report.id%>" name="rating_<%=report.id%>" value="5" <%='checked' if report.score ==5%> disabled/><label class = "full" for="star5_report.id" title="Awesome"></label>
-        <input type="radio" id="star4_<%=report.id%>" name="rating_<%=report.id%>" value="4" <%='checked' if report.score ==4%>disabled/><label class = "full" for="star4_report.id" title="Pretty good"></label>
-        <input type="radio" id="star3_<%=report.id%>" name="rating_<%=report.id%>" value="3" <%='checked' if report.score ==3%>disabled/><label class = "full" for="star3_report.id" title="Okay"></label>
-        <input type="radio" id="star2_<%=report.id%>" name="rating_<%=report.id%>" value="2" <%='checked' if report.score ==2%>disabled/><label class = "full" for="star2_report.id" title="Kinda bad"></label>
-        <input type="radio" id="star1_<%=report.id%>" name="rating_<%=report.id%>" value="1"<%='checked' if report.score ==1%>disabled/><label class = "full" for="star1_report.id" title="Bad"></label>
-      </fieldset>
-    </div>
-      <div class="col-md-9 col-md-pull-3">
-        <h2 class="featurette-heading">"<%=report.title%>" - <%=report.user.username%></h2>
-          <h3 class="featurette-heading"><%=report.race.name%> <%=report.year%></h3>
-         <h4><a href="/reports/<%=report.id%>">Read the full review.</a><h4>
-      </div>
-
+<div class="container-fluid">
+  <div class="jumbotron">
+          <h1><%=@user.username%>'s Reports:</h1>
   </div>
-<%end%>
+  <hr class="solid">
+  <div class="container">
+      <%@user.reports.each do |report|%>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+          <div class="pull-left span9">
+            <h3 class="featurette-heading">"<%=report.title%>" - <%=report.user.username%></h3>
+              <h4 class="featurette-heading"><%=report.race.name%> <%=report.year%></h4>
+             <h5><a href="/reports/<%=report.id%>">Read the full review.</a><h5>
+          </div>
+          <div class="pull-right span3">
+            <fieldset class="rating">
+              <input type="radio" id="star5_<%=report.id%>" name="rating_<%=report.id%>" value="5" <%='checked' if report.score ==5%> disabled/><label class = "full" for="star5_<%=report.id%>" title="Awesome"></label>
+              <input type="radio" id="star4_<%=report.id%>" name="rating_<%=report.id%>" value="4" <%='checked' if report.score ==4%> disabled/><label class = "full" for="star4_<%=report.id%>" title="Pretty good"></label>
+              <input type="radio" id="star3_<%=report.id%>" name="rating_<%=report.id%>" value="3" <%='checked' if report.score ==3%> disabled/><label class = "full" for="star3_<%=report.id%>" title="Okay"></label>
+              <input type="radio" id="star2_<%=report.id%>" name="rating_<%=report.id%>" value="2" <%='checked' if report.score ==2%> disabled/><label class = "full" for="star2_<%=report.id%>" title="Kinda bad"></label>
+              <input type="radio" id="star1_<%=report.id%>" name="rating_<%=report.id%>" value="1" <%='checked' if report.score ==1%> disabled/><label class = "full" for="star1_<%=report.id%>" title="Bad"></label>
+            </fieldset>
+          </div>
+        </div>
+      <%end%>
+  </div>
+
+
+</div>
