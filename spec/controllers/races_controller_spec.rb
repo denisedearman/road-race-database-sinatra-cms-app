@@ -75,11 +75,9 @@ describe RacesController do
 
         visit "/races/#{race.slug}"
         expect(page.body).to include(good_race.title)
-        expect(page.body).to include(good_race.content)
         expect(page.body).to include(good_race.score.to_s)
         expect(page.body).to include(good_race.year.to_s)
         expect(page.body).to include(bad_race.title)
-        expect(page.body).to include(bad_race.content)
         expect(page.body).to include(bad_race.score.to_s)
         expect(page.body).to include(bad_race.year.to_s)
       end

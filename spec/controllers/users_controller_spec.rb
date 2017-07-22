@@ -100,7 +100,7 @@ describe UsersController do
 
       fill_in(:username, :with => "scott")
       fill_in(:password, :with => "runningformiles")
-      
+
       click_button 'submit'
       expect(page.current_path).to eq('/races')
     end
@@ -169,7 +169,6 @@ describe UsersController do
       get "/users/#{user.slug}"
 
       expect(last_response.body).to include("Win")
-      expect(last_response.body).to include("good race overall")
     end
   end
 
