@@ -45,11 +45,22 @@
         <input type="text" class="form-control" name="report[title]" id="report_title">
       </div>
     </div>
-    <div class="form-group row">
+    <!-- <div class="form-group row">
       <label class="col-xs-3 col-form-label" for="score">Score (0 to 5)</label>
       <div class="col-xs-2">
         <input type="text" class="form-control" name="report[score]" id="report_score">
       </div>
+    </div> -->
+
+    <div class="form-group">
+      <label for="report_score">Rating:</label>
+      <select class="form-control" name="report[score]" id="report_score">
+        <option name="1star">1</option>
+        <option name="2star">2</option>
+        <option name="3star">3</option>
+        <option name="4star">4</option>
+        <option name="5star">5</option>
+      </select>
     </div>
     <div class="form-group row">
       <label class="col-xs-3 col-form-label" for="year">Year</label>

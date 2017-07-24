@@ -52,7 +52,7 @@ describe ReportsController do
 
         visit '/reports/new'
         fill_in :report_title, with: "Best Race Ever"
-        fill_in :report_score, with: 5
+        select "5", from: "report_score"
         fill_in :report_year, with: 2015
         fill_in :report_content, with: "The BEST RACE EVER"
         fill_in :report_runs_per_week, with: 5
@@ -81,7 +81,7 @@ describe ReportsController do
 
         visit '/reports/new'
         fill_in :report_title, with: "Best Race Ever"
-        fill_in :report_score, with: 5
+        select "5", from: "report_score"
         fill_in :report_year, with: 2015
         fill_in :report_content, with: "The BEST RACE EVER"
         fill_in :report_runs_per_week, with: 5

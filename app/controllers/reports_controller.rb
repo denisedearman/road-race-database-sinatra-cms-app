@@ -20,6 +20,8 @@ class ReportsController < ApplicationController
   post '/reports' do
     if !logged_in?
       redirect '/login'
+    elsif params[:report][:race_id].to_i == 0 && params[:race][:name] == ""
+      redirect '/reports/new'
     else
       report = Report.create(params[:report])
       report.user = current_user
