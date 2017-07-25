@@ -1,3 +1,7 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <div class="container">
   <form method = "POST" action="/reports/<%=@report.id%>" class="col-xs-7">
     <input type="hidden" name="_method" value="PATCH">

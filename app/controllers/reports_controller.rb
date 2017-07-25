@@ -1,5 +1,6 @@
+require 'rack-flash'
 class ReportsController < ApplicationController
-
+  use Rack::Flash
   get '/reports/new' do
     if !logged_in?
       redirect '/login'
@@ -21,6 +22,7 @@ class ReportsController < ApplicationController
     if !logged_in?
       redirect '/login'
     elsif params[:report][:race_id].to_i == 0 && params[:race][:name] == ""
+      flash[:message] = "Your race was not given a race name. Could not save report!"
       redirect '/reports/new'
     else
       report = Report.create(params[:report])
@@ -59,8 +61,12 @@ class ReportsController < ApplicationController
       redirect '/login'
     else
       report = Report.find_by_id(params[:id])
+      if params[:report][:race_id].to_i == 0 && params[:race][:name] == ""
+        flash[:message] = "Your race was not given a race name. Could not save report's race."
+        redirect "/reports/#{report.id}/edit"
+      end
       report.update(params[:report])
-      if params[:report][:race_id].to_i == 0 || params[:race][:name] != ""
+      if params[:report][:race_id].to_i == 0 && params[:race][:name] != ""
         race= Race.create(params[:race])
         report.race = race
       end

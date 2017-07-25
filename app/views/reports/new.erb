@@ -1,3 +1,8 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+
 <div class="container">
   <form method = "POST" action = "/reports" class="col-xs-7">
     <h1>Create a New Race Report</h2>

@@ -1,5 +1,6 @@
+require 'rack-flash'
 class RacesController < ApplicationController
-
+  use Rack::Flash
   get '/races' do
     if !logged_in?
       redirect '/login'
@@ -13,6 +14,7 @@ class RacesController < ApplicationController
     if !logged_in?
       redirect '/login'
     elsif params[:race][:name] == ""
+      flash[:message] = "Your new race could not be saved without a name."
       redirect '/races/new'
     else
       Race.create(params[:race])
